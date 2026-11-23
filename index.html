@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>仓库导航 · Minecraft 物资仓库</title>
+  <meta name="description" content="721 件 Minecraft 物资的仓库位置查询：按名称、编码或区域快速定位到排与格。">
+  <meta name="theme-color" content="#0b1117">
+  <meta property="og:title" content="仓库导航 · Minecraft 物资仓库">
+  <meta property="og:description" content="721 件物资，6 个区域。输入名称、编码或区域，立刻知道它在哪里。">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1117'/%3E%3Cpath d='M18 46 L42 22' stroke='%236fe0a0' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M26 16 C36 12 46 16 50 24 C42 30 34 28 30 22' fill='none' stroke='%236fe0a0' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="index">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">⛏</span>
+        <span>
+          <strong>仓库导航</strong>
+          <small>Minecraft Warehouse</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="主要导航">
+        <a href="index.html" data-nav="index" aria-current="page">总览</a>
+        <a href="map.html" data-nav="map">地图</a>
+        <a href="items.html" data-nav="items">清单</a>
+        <a href="about.html" data-nav="about">说明</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page">
+    <div class="shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Minecraft · 仓库查询</p>
+          <h1 id="hero-title">找一件东西，<br><span>只要三秒。</span></h1>
+          <p class="lede">
+            仓库里共有 <strong data-stat="used">721</strong> 件物资，分布在
+            <strong data-stat="zones">6</strong> 个区域。输入名称、编码或区域，
+            立刻知道它在哪一排、哪一格。
+          </p>
+
+          <form class="search-form" id="search-form" role="search">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <label class="sr-only" for="q">搜索物品</label>
+            <input id="q" name="q" type="search" placeholder="搜索：钻石、羊毛、AL-2-13…"
+                   autocomplete="off" spellcheck="false" autofocus>
+            <button type="button" class="clear-btn" id="clear-btn" hidden>清除</button>
+            <kbd>/</kbd>
+          </form>
+
+          <div class="chips" id="cat-chips" role="group" aria-label="按分类筛选"></div>
+          <p class="hint">支持空格分词，例如「钻石 矿物」；也可以直接输入编码。</p>
+        </div>
+
+        <aside class="hero-panel" aria-label="仓库占用情况">
+          <div class="ring" id="ring">
+            <div class="ring-inner">
+              <strong id="ring-rate">—</strong>
+              <span>格位占用</span>
+            </div>
+          </div>
+          <div class="mini-stats">
+            <div class="mini-stat"><strong data-stat="used">721</strong><span>物品</span></div>
+            <div class="mini-stat"><strong data-stat="total">722</strong><span>总格位</span></div>
+            <div class="mini-stat"><strong data-stat="zones">6</strong><span>区域</span></div>
+            <div class="mini-stat"><strong data-stat="empty">1</strong><span>空位</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section" id="results-section" aria-labelledby="results-title">
+        <div class="section-head">
+          <h2 id="results-title">快速开始</h2>
+          <p id="result-count" aria-live="polite">输入关键词，或从下面挑一件</p>
+        </div>
+        <div class="result-grid" id="results"></div>
+        <div class="empty" id="empty" hidden></div>
+      </section>
+
+      <section class="section" id="recent-section" aria-labelledby="recent-title" hidden>
+        <div class="section-head">
+          <h2 id="recent-title">最近查看</h2>
+          <button type="button" class="btn ghost small" id="clear-recent">清空记录</button>
+        </div>
+        <div class="recent-list" id="recent-list"></div>
+      </section>
+
+      <section class="section" aria-labelledby="zones-title">
+        <div class="section-head">
+          <h2 id="zones-title">六个区域</h2>
+          <a href="map.html">打开完整地图 →</a>
+        </div>
+        <div class="zone-grid" id="zone-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p>
+        共 <strong data-stat="used">721</strong> 件物品 ·
+        <strong data-stat="total">722</strong> 个格位 ·
+        <strong data-stat="zones">6</strong> 个区域
+      </p>
+      <p><a href="about.html">坐标规则与更新说明</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/core.js"></script>
+  <script src="assets/ui.js"></script>
+  <script src="assets/index.js"></script>
+</body>
+</html>

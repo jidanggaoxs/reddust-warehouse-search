@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>说明 · 仓库导航</title>
+  <meta name="description" content="仓库导航的坐标规则、区域容量、分类说明、快捷键与数据更新方式。">
+  <meta name="theme-color" content="#0b1117">
+  <meta property="og:title" content="说明 · 仓库导航">
+  <meta property="og:description" content="坐标规则、区域容量、分类说明与数据更新方式。">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1117'/%3E%3Cpath d='M18 46 L42 22' stroke='%236fe0a0' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M26 16 C36 12 46 16 50 24 C42 30 34 28 30 22' fill='none' stroke='%236fe0a0' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="about">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">⛏</span>
+        <span>
+          <strong>仓库导航</strong>
+          <small>Minecraft Warehouse</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="主要导航">
+        <a href="index.html" data-nav="index">总览</a>
+        <a href="map.html" data-nav="map">地图</a>
+        <a href="items.html" data-nav="items">清单</a>
+        <a href="about.html" data-nav="about" aria-current="page">说明</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page">
+    <div class="shell">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">使用说明</p>
+          <h1>坐标、分类与数据</h1>
+          <p class="lede">
+            这个站点把原来的单文件查询页拆成了总览、地图、清单和说明四页，
+            数据仍然来自同一份仓库快照。
+          </p>
+        </div>
+      </div>
+
+      <article class="panel prose-panel">
+        <div class="prose">
+          <div class="info-grid" id="about-stats"></div>
+          <p class="faint" id="generated-at"></p>
+
+          <h2>坐标怎么读</h2>
+          <p>
+            每个物品都有一个稳定编码。货架区用三段编码，柜子区用两段编码：
+          </p>
+          <div class="coord-example" aria-label="编码 AL-2-13 的拆解">
+            <div class="coord-cell"><strong>AL</strong><span>区域</span></div>
+            <div class="coord-cell"><strong>2</strong><span>第 2 排</span></div>
+            <div class="coord-cell"><strong>13</strong><span>第 13 格</span></div>
+          </div>
+          <ul>
+            <li><code>AL</code> = A 区 · 左侧，<code>AR</code> = A 区 · 右侧；B、C 区同理。</li>
+            <li><code>AL-2-13</code> 读作「A 区 · 左侧 · 第 2 排 · 第 13 格」。</li>
+            <li><code>CL-07</code> 读作「C 区 · 左侧 · 第 7 格」，柜子只有一排，所以省略排号。</li>
+            <li>排号和格号都从 1 开始，格号在界面里补足两位显示。</li>
+          </ul>
+
+          <h2>区域与容量</h2>
+          <p>
+            六个区域共 722 个格位，其中 721 个已放入物品，唯一空位在
+            <strong>BR-4-44</strong>。
+          </p>
+          <table class="cat-table">
+            <thead>
+              <tr>
+                <th scope="col">区域</th>
+                <th scope="col">类型</th>
+                <th scope="col">容量</th>
+                <th scope="col">占用</th>
+              </tr>
+            </thead>
+            <tbody id="zone-rows"></tbody>
+          </table>
+
+          <h2>分类说明</h2>
+          <p>
+            分类是根据物品名称自动推断的，用来帮助浏览，不是游戏内的官方分类。
+            少数跨界物品可能归到你意想不到的类别。
+          </p>
+          <table class="cat-table">
+            <thead>
+              <tr>
+                <th scope="col">分类</th>
+                <th scope="col">包含</th>
+                <th scope="col">数量</th>
+              </tr>
+            </thead>
+            <tbody id="cat-rows"></tbody>
+          </table>
+
+          <h2>快捷键</h2>
+          <div class="kbd-list">
+            <div class="kbd-row"><span>在总览或清单页聚焦搜索框</span><kbd>/</kbd></div>
+            <div class="kbd-row"><span>清空搜索词</span><kbd>Esc</kbd></div>
+            <div class="kbd-row"><span>关闭物品详情</span><kbd>Esc</kbd></div>
+            <div class="kbd-row"><span>打开物品详情</span><span>点击名称或地图格子</span></div>
+          </div>
+
+          <h2>数据与更新</h2>
+          <p>
+            站点是纯静态的，没有后端和数据库。页面里的
+            <code>assets/data.js</code> 由脚本从原始查询页提取生成，
+            所以更新仓库数据只需要重新生成一次：
+          </p>
+          <ol>
+            <li>用新的单文件查询页替换源文件。</li>
+            <li>在站点根目录运行 <code>python tools/build_data.py --source &lt;源文件&gt;</code>。</li>
+            <li>运行 <code>node tools/test_core.js</code>，确认数量、空位和分类测试仍然通过。</li>
+            <li>把改动提交到仓库，GitHub Pages 会自动重新发布。</li>
+          </ol>
+          <div class="note">
+            更新脚本会校验区域、编码、容量、名称唯一性和总数守恒；
+            如果数据不完整，它会以非零状态退出，避免把坏数据发上线。
+          </div>
+
+          <h2>离线与隐私</h2>
+          <p>
+            所有页面、样式和脚本都使用相对路径，直接双击
+            <code>index.html</code> 也能离线使用。站点不加载外部字体、CDN
+            或统计脚本，也不会把查询内容发送到任何服务器。
+          </p>
+          <p>
+            总览页的「最近查看」只保存在你当前浏览器的
+            <code>localStorage</code> 里，最多 8 条，可以随时清空。
+          </p>
+
+          <h2>常见问题</h2>
+          <h3>为什么搜索「钻石」会出现钻石块和钻石剑？</h3>
+          <p>
+            搜索会匹配名称中包含关键词的所有物品，并按「名称完全一致 →
+            开头一致 → 包含关键词 → 编码命中」排序。要精确找编码，直接输入
+            <code>BL-3-08</code> 这样的完整编码即可。
+          </p>
+          <h3>地图为什么需要横向滚动？</h3>
+          <p>
+            货架每排有 44 格，完整铺开比普通屏幕宽。地图按 01–11、12–22、
+            23–33、34–44 分成四组，左右拖动就能看到整排。
+          </p>
+          <h3>可以把它部署到自己的域名吗？</h3>
+          <p>
+            可以。站点是纯静态文件，部署到 GitHub Pages、Cloudflare Pages
+            或任意静态服务器都可以，仓库里的 README 有具体步骤。
+          </p>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p>
+        共 <strong data-stat="used">721</strong> 件物品 ·
+        <strong data-stat="total">722</strong> 个格位 ·
+        <strong data-stat="zones">6</strong> 个区域
+      </p>
+      <p><a href="index.html">返回总览</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/core.js"></script>
+  <script src="assets/ui.js"></script>
+  <script src="assets/about.js"></script>
+</body>
+</html>

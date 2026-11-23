@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>仓库地图 · 仓库导航</title>
+  <meta name="description" content="Minecraft 仓库六个区域的完整地图：按排与格查看 721 件物品的位置，点击任意格子查看详情。">
+  <meta name="theme-color" content="#0b1117">
+  <meta property="og:title" content="仓库地图 · 仓库导航">
+  <meta property="og:description" content="六个区域、722 个格位的完整地图，点击格子查看物品详情。">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1117'/%3E%3Cpath d='M18 46 L42 22' stroke='%236fe0a0' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M26 16 C36 12 46 16 50 24 C42 30 34 28 30 22' fill='none' stroke='%236fe0a0' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="map">
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">⛏</span>
+        <span>
+          <strong>仓库导航</strong>
+          <small>Minecraft Warehouse</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="主要导航">
+        <a href="index.html" data-nav="index">总览</a>
+        <a href="map.html" data-nav="map" aria-current="page">地图</a>
+        <a href="items.html" data-nav="items">清单</a>
+        <a href="about.html" data-nav="about">说明</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="page">
+    <div class="shell">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">仓库地图</p>
+          <h1>六个区域，一眼定位</h1>
+          <p class="lede">
+            每排按 01–11、12–22、23–33、34–44 分成四组。点击任意格子查看物品详情，
+            也可以从顶部快速跳到某个区域。
+          </p>
+        </div>
+        <p class="muted">
+          <strong data-stat="used">721</strong> 件物品 ·
+          <strong data-stat="total">722</strong> 个格位 ·
+          空位 <strong data-stat="empty">1</strong>
+        </p>
+      </div>
+
+      <nav class="map-toolbar" id="zone-jump" aria-label="区域快速跳转"></nav>
+
+      <div class="map-legend" aria-label="图例">
+        <span><span class="dot" style="background:#6fe0a0"></span>货架格位</span>
+        <span><span class="dot" style="background:#7fb6e8"></span>柜子格位</span>
+        <span><span class="dot" style="background:#263648"></span>虚线格 = 空位</span>
+        <span>每格右上角小点表示物品分类</span>
+      </div>
+
+      <div id="map-zones"></div>
+
+      <p class="map-tip">
+        地图较宽，可左右拖动查看整排；点击格子会打开详情，并显示同排与上下排的相邻物品。
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p>
+        共 <strong data-stat="used">721</strong> 件物品 ·
+        <strong data-stat="total">722</strong> 个格位 ·
+        <strong data-stat="zones">6</strong> 个区域
+      </p>
+      <p><a href="about.html">坐标规则与更新说明</a></p>
+    </div>
+  </footer>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/core.js"></script>
+  <script src="assets/ui.js"></script>
+  <script src="assets/map.js"></script>
+</body>
+</html>
