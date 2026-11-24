@@ -175,6 +175,30 @@
     buildJump(stats.zones);
   }
 
+  /* 深链进来的物品：图上高亮 + 搜索框填名字 */
+  var schematicInput = null;
+  var schematicClear = null;
+
+  function itemName(code) {
+    var list = WH.items();
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].code === code) return list[i].name;
+    }
+    return "";
+  }
+
+  function focusSchematic(code) {
+    if (!WH.schematic) return;
+    var p = WH.schematic.payloadFor(code) || WH.schematic.payloadForShelf(code);
+    if (!p) return;
+    var name = itemName(code);
+    WH.schematic.highlight(p, name);
+    if (schematicInput) {
+      schematicInput.value = name || code;
+      if (schematicClear) schematicClear.hidden = false;
+    }
+  }
+
   function applyHash() {
     var raw = String(location.hash || "").replace(/^#/, "");
     if (!raw) return;
@@ -192,6 +216,7 @@
       if (parsed) {
         lastZone = parsed.zone;
         scrollZone(parsed.zone);
+        focusSchematic(parsed.code);
         window.setTimeout(function () {
           UI.openItem(parsed.code);
         }, 80);
@@ -203,6 +228,7 @@
     if (zoneParam && WH.zoneById(zoneParam)) {
       lastZone = zoneParam;
       scrollZone(zoneParam);
+      if (WH.schematic) WH.schematic.focusZone(zoneParam);
       return;
     }
 
@@ -210,12 +236,44 @@
     if (anchor && WH.zoneById(anchor[1].toUpperCase())) {
       lastZone = anchor[1].toUpperCase();
       scrollZone(lastZone);
+      if (WH.schematic) WH.schematic.focusZone(lastZone);
+      return;
     }
   }
 
   function init() {
     container = $("map-zones");
     jump = $("zone-jump");
+
+    if (WH.schematic) WH.schematic.mount(document.querySelector("[data-schematic]"));
+
+    /* 卡片内搜索 → 候选列表 → 选中才在图上定位 */
+    var sInput = document.getElementById("schematic-q");
+    var sClear = document.getElementById("schematic-clear");
+    schematicInput = sInput;
+    schematicClear = sClear;
+
+    function syncClearBtn() {
+      if (sClear) sClear.hidden = !sInput.value.trim();
+    }
+
+    if (WH.schematic && sInput) {
+      WH.schematic.attachSearch(sInput, { onSelect: syncClearBtn });
+      sInput.addEventListener("input", syncClearBtn);
+    }
+
+    if (sInput) {
+      sInput.addEventListener("search", syncClearBtn);
+      if (sClear) {
+        sClear.addEventListener("click", function () {
+          sInput.value = "";
+          syncClearBtn();
+          if (WH.schematic) WH.schematic.clear();
+          sInput.focus();
+        });
+      }
+    }
+
 
     renderMap();
 

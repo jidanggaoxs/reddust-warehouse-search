@@ -51,6 +51,32 @@
         </p>
       </div>
 
+      <section class="panel schematic-card" aria-labelledby="schematic-title">
+        <div class="schematic-head">
+          <div>
+            <h2 id="schematic-title">总平面</h2>
+            <p>四个货架区围着中间的大厅，两个柜区在下方通道两侧。点格子可以预览位置，窄屏可左右拖动看图。</p>
+          </div>
+          <p class="schematic-readout idle" data-schematic-readout>点一个格子，或搜索物品</p>
+        </div>
+        <form class="search-form schematic-search" role="search">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <label class="sr-only" for="schematic-q">在地图上搜索物品</label>
+          <input id="schematic-q" name="schematic-q" type="search" placeholder="搜索：钻石、苹果、AL-2-13…"
+                 autocomplete="off" spellcheck="false">
+          <button type="button" class="clear-btn" id="schematic-clear" hidden>清除</button>
+        </form>
+        <div class="schematic-host" data-schematic></div>
+        <div class="schematic-legend">
+          <span><i class="dot" style="background:#6fe0a0"></i>A 区</span>
+          <span><i class="dot" style="background:#7fb6e8"></i>B 区</span>
+          <span><i class="dot" style="background:#f0b45a"></i>C 区（柜）</span>
+          <span><i class="dot" style="background:#e6eef7"></i>十字路口</span>
+          <span>虚线 = 每 11 格一组（4 组，从大厅那侧往外数）</span>
+          <span>细实线 = 排（1–4，靠走道为第 1 排）/ 柜区格位（1–9）</span>
+        </div>
+      </section>
+
       <nav class="map-toolbar" id="zone-jump" aria-label="区域快速跳转"></nav>
 
       <div class="map-legend" aria-label="图例">
@@ -82,6 +108,7 @@
   <script src="assets/data.js"></script>
   <script src="assets/core.js"></script>
   <script src="assets/ui.js"></script>
+  <script src="assets/schematic.js"></script>
   <script src="assets/map.js"></script>
 </body>
 </html>

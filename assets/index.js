@@ -207,6 +207,19 @@
     return "items.html" + (hash === "#" ? "" : hash);
   }
 
+  /* 首页搜索 → 候选列表 → 选中才在位置预览图上高亮 */
+  function attachSchematicSearch() {
+    if (!WH.schematic || !input) return;
+    WH.schematic.attachSearch(input, {
+      onSelect: function (item) {
+        state.q = item.name;
+        updateClear();
+        syncHash();
+        render();
+      }
+    });
+  }
+
   function render() {
     var query = state.q.trim();
     var hasFilter = Boolean(query || state.cat);
@@ -360,6 +373,9 @@
     input.value = state.q;
     updateClear();
 
+    if (WH.schematic) WH.schematic.mount(document.querySelector("[data-schematic]"));
+
+    attachSchematicSearch();
     renderChips();
     renderZones();
     renderRecent();

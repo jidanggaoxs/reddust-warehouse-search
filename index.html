@@ -74,6 +74,25 @@
         </aside>
       </section>
 
+      <section class="panel schematic-card" aria-labelledby="home-schematic-title">
+        <div class="schematic-head">
+          <div>
+            <h2 id="home-schematic-title">位置预览</h2>
+            <p>在上面搜索物品，选中之后这里会标出它所在的区域、第几排、哪一组格位；也可以直接点格子，窄屏可左右拖动看图。</p>
+          </div>
+          <p class="schematic-readout idle" data-schematic-readout>搜索物品，这里显示位置</p>
+        </div>
+        <div class="schematic-host" data-schematic></div>
+        <div class="schematic-legend">
+          <span><i class="dot" style="background:#6fe0a0"></i>A 区</span>
+          <span><i class="dot" style="background:#7fb6e8"></i>B 区</span>
+          <span><i class="dot" style="background:#f0b45a"></i>C 区（柜）</span>
+          <span><i class="dot" style="background:#e6eef7"></i>十字路口</span>
+          <span>虚线 = 每 11 格一组（4 组，从大厅那侧往外数）</span>
+          <span>细实线 = 排（1–4，靠走道为第 1 排）/ 柜区格位（1–9）</span>
+        </div>
+      </section>
+
       <section class="section" id="results-section" aria-labelledby="results-title">
         <div class="section-head">
           <h2 id="results-title">快速开始</h2>
@@ -115,6 +134,7 @@
   <script src="assets/data.js"></script>
   <script src="assets/core.js"></script>
   <script src="assets/ui.js"></script>
+  <script src="assets/schematic.js"></script>
   <script src="assets/index.js"></script>
 </body>
 </html>

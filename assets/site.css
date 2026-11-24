@@ -197,7 +197,7 @@ ol {
 .brand small {
   display: block;
   color: var(--faint);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -477,7 +477,7 @@ ol {
   border-radius: 6px;
   color: var(--faint);
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
 }
 
 .clear-btn {
@@ -525,6 +525,13 @@ ol {
   background: var(--accent);
   border-color: var(--accent);
   font-weight: 700;
+}
+
+/* 选中态里的数量：别用全局 .faint 的灰，绿底上对比度不够 */
+.chip[aria-pressed="true"] .faint {
+  color: inherit;
+  opacity: 0.82;
+  font-weight: 400;
 }
 
 .chip .dot {
@@ -618,7 +625,7 @@ ol {
   display: block;
   margin-top: 2px;
   color: var(--faint);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
 }
 
 /* ---------- 结果卡片 ---------- */
@@ -677,7 +684,7 @@ ol {
 .item-open {
   display: block;
   width: 100%;
-  padding: 0;
+  padding: 6px 0;
   border: 0;
   background: transparent;
   color: var(--text);
@@ -806,7 +813,7 @@ mark {
 
 .zone-card .zone-kind {
   color: var(--faint);
-  font-size: 0.74rem;
+  font-size: 0.78rem;
 }
 
 .zone-meter {
@@ -966,7 +973,7 @@ mark {
   border: 1px dashed var(--line);
   color: var(--faint);
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   writing-mode: vertical-rl;
   letter-spacing: 0.08em;
 }
@@ -977,27 +984,27 @@ mark {
 }
 
 .map-group-head {
-  width: 638px;
-  flex: 0 0 638px;
+  width: 748px;
+  flex: 0 0 748px;
   padding: 0 2px;
   color: var(--faint);
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
 }
 
 .map-group {
   display: grid;
-  grid-template-columns: repeat(11, 52px);
+  grid-template-columns: repeat(11, 62px);
   gap: 6px;
-  width: 638px;
-  flex: 0 0 638px;
+  width: 748px;
+  flex: 0 0 748px;
 }
 
 .map-group.small {
-  grid-template-columns: repeat(9, 64px);
-  width: 638px;
-  flex-basis: 638px;
+  grid-template-columns: repeat(9, 62px);
+  width: 748px;
+  flex-basis: 748px;
 }
 
 .slot {
@@ -1029,7 +1036,7 @@ mark {
 .slot-no {
   color: var(--faint);
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   line-height: 1;
 }
 
@@ -1039,7 +1046,7 @@ mark {
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: var(--text);
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   line-height: 1.25;
   word-break: break-all;
 }
@@ -1523,6 +1530,11 @@ dialog.item-dialog::backdrop {
   margin-top: 18px;
 }
 
+/* 字段是奇数个时，最后一项占满整行，避免右下角空一块 */
+.dialog-grid .dialog-field:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .dialog-field {
   padding: 12px 14px;
   border: 1px solid var(--line-soft);
@@ -1653,6 +1665,12 @@ dialog.item-dialog::backdrop {
 
 .footer-inner p {
   margin: 0;
+}
+
+/* 页脚链接补足点击区（行内文字只有 17px 高） */
+.footer-inner a {
+  display: inline-block;
+  padding: 5px 2px;
 }
 
 /* ---------- 404 ---------- */
@@ -1831,27 +1849,27 @@ dialog.item-dialog::backdrop {
 
   .map-group-head,
   .map-group {
-    width: 594px;
-    flex-basis: 594px;
+    width: 748px;
+    flex-basis: 748px;
   }
 
   .map-group {
-    grid-template-columns: repeat(11, 48px);
+    grid-template-columns: repeat(11, 62px);
   }
 
   .map-row-label {
-    width: 42px;
-    flex-basis: 42px;
+    width: 52px;
+    flex-basis: 52px;
   }
 
   .map-group-heads {
-    padding-left: 52px;
+    padding-left: 66px;
   }
 
   .map-group.small {
-    width: 594px;
-    flex-basis: 594px;
-    grid-template-columns: repeat(9, 60px);
+    width: 748px;
+    flex-basis: 748px;
+    grid-template-columns: repeat(9, 62px);
   }
 }
 
@@ -1887,6 +1905,282 @@ dialog.item-dialog::backdrop {
   .cat-table th:nth-child(2),
   .cat-table td:nth-child(2) {
     display: none;
+  }
+}
+
+/* ==========================================================================
+   地图页 · 总平面示意图（assets/schematic.js 生成）
+   ========================================================================== */
+
+.schematic-card {
+  margin-top: 28px;
+  padding: 22px 22px 18px;
+}
+
+.schematic-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.schematic-head h2 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.schematic-head p {
+  margin: 0;
+  color: var(--faint);
+  font-size: 0.86rem;
+  max-width: 56ch;
+}
+
+.schematic-readout {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  min-height: 20px;
+}
+
+.schematic-readout.idle {
+  color: var(--faint);
+}
+
+.schematic-search {
+  margin-top: 14px;
+}
+
+.schematic-host {
+  margin-top: 14px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.schematic-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* 窄屏下保底宽度，避免字号被压到看不清；超出部分左右拖动 */
+  min-width: 640px;
+}
+
+.schematic-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--faint);
+}
+
+.schematic-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* --- SVG 内部 --- */
+
+.sch-block {
+  transition: fill-opacity 0.18s, stroke-opacity 0.18s;
+}
+
+.sch-cell {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 1;
+  cursor: pointer;
+  transition: stroke 0.12s;
+}
+
+.sch-cell:hover {
+  stroke: rgba(230, 238, 247, 0.35);
+}
+
+.sch-seg-line {
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.9;
+}
+
+.sch-row-line {
+  stroke: var(--line-soft);
+  stroke-width: 0.8;
+  opacity: 0.65;
+}
+
+.sch-slot-line {
+  stroke: rgba(230, 238, 247, 0.14);
+  stroke-width: 0.8;
+}
+
+.sch-grid {
+  pointer-events: none;
+}
+
+.sch-grid line {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.schematic-host g[data-zone]:hover .sch-grid line {
+  opacity: 1;
+}
+
+.sch-code {
+  font-family: var(--mono);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  fill: var(--muted);
+  transition: fill 0.18s, opacity 0.18s;
+  pointer-events: none;
+}
+
+.sch-name {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  fill: var(--faint);
+  pointer-events: none;
+}
+
+.sch-frame {
+  fill: none;
+  stroke: rgba(230, 238, 247, 0.16);
+  stroke-width: 1.2;
+}
+
+.sch-hall {
+  fill: rgba(230, 238, 247, 0.035);
+}
+
+.sch-hall-line {
+  fill: none;
+  stroke: rgba(230, 238, 247, 0.2);
+  stroke-width: 1.1;
+}
+
+.sch-hub {
+  fill: rgba(230, 238, 247, 0.08);
+}
+
+.sch-hub-wall,
+.sch-hub-arc {
+  fill: none;
+  stroke: #e6eef7;
+  stroke-opacity: 0.45;
+  stroke-width: 1.2;
+}
+
+.sch-hub-floor {
+  fill: rgba(230, 238, 247, 0.05);
+}
+
+.sch-hub-name {
+  font-family: var(--mono);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  fill: #e6eef7;
+  opacity: 0.92;
+  text-anchor: middle;
+}
+
+.sch-deck {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  fill: #e6eef7;
+  opacity: 0.52;
+  text-anchor: middle;
+}
+
+.sch-entry {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  fill: #e6eef7;
+  opacity: 0.9;
+  text-anchor: middle;
+}
+
+/* 搜索候选下拉（schematic 搜索框共用） */
+.search-form {
+  position: relative;
+}
+
+.sch-sugg {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  max-height: 260px;
+  overflow: auto;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel-2);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.sch-sugg[hidden] {
+  display: none;
+}
+
+.sch-sugg-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sch-sugg-row:hover,
+.sch-sugg-row.is-active {
+  background: rgba(111, 224, 160, 0.12);
+}
+
+.sch-sugg-name {
+  font-size: 0.9rem;
+}
+
+.sch-sugg-meta {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.sch-sugg-empty {
+  margin: 0;
+  padding: 8px 10px;
+  color: var(--faint);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  .schematic-card {
+    padding: 16px 14px 14px;
+  }
+
+  .schematic-legend {
+    font-size: 0.75rem;
+    gap: 6px 12px;
   }
 }
 

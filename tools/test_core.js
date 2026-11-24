@@ -123,6 +123,42 @@ eq(bad.sort, "name", "非法 sort 忽略");
 eq(bad.page, 1, "非法 page 忽略");
 eq(bad.item, "", "非法 item 忽略");
 
+// ---------- 平面图：分组 / 排 / 位置说法 ----------
+global.window = global; // schematic.js 挂在 window 上，Node 里让两者同一对象
+require("../assets/schematic.js");
+const SCH = global.WH.schematic;
+
+eq(SCH.zones.length, 6, "平面图区域数应为 6");
+eq(SCH.groupRange(0, 44), [1, 11], "第 1 组 01–11");
+eq(SCH.groupRange(1, 44), [12, 22], "第 2 组 12–22");
+eq(SCH.groupRange(2, 44), [23, 33], "第 3 组 23–33");
+eq(SCH.groupRange(3, 44), [34, 44], "第 4 组 34–44");
+
+eq(SCH.groupOf(1), 0, "第 1 格属第 1 组");
+eq(SCH.groupOf(11), 0, "第 11 格属第 1 组");
+eq(SCH.groupOf(12), 1, "第 12 格属第 2 组");
+eq(SCH.groupOf(44), 3, "第 44 格属第 4 组");
+
+const pBL = SCH.payloadFor("BL-3-08");
+eq(pBL.row, 3, "BL-3-08 排号");
+eq(pBL.slot, 8, "BL-3-08 格号");
+eq(pBL.range, [1, 11], "BL-3-08 组区间");
+eq(SCH.posText(pBL), "BL · 第 3 排 · 第 8 格（1–11 组）", "BL-3-08 位置说法");
+
+eq(SCH.payloadFor("BR-3-16").range, [12, 22], "BR-3-16 在第 2 组");
+const pAL = SCH.payloadFor("AL-4-44");
+eq(pAL.row, 4, "AL-4-44 排号");
+eq(pAL.range, [34, 44], "AL-4-44 在第 4 组");
+
+eq(SCH.payloadFor("AL-2-45"), null, "越界格返回 null");
+eq(SCH.payloadFor("AL-5-01"), null, "越界排返回 null");
+eq(SCH.payloadFor("ZZ-1-01"), null, "未知区域返回 null");
+
+const pC = SCH.payloadForShelf("CL-07");
+eq(pC.slot, 7, "柜区第 7 格");
+eq(SCH.posText(pC), "CL · 第 7 格", "柜区位置说法");
+eq(SCH.payloadFor("CL-99"), null, "柜区越界格返回 null");
+
 // ---------- 最近查看 ----------
 const memory = {};
 global.localStorage = {

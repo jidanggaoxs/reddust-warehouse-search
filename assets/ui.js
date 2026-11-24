@@ -249,6 +249,10 @@
         el("strong", { id: "dlg-zone", text: "" })
       ]),
       el("div", { class: "dialog-field" }, [
+        el("span", { text: "段位" }),
+        el("strong", { id: "dlg-rough", text: "" })
+      ]),
+      el("div", { class: "dialog-field" }, [
         el("span", { text: "分类" }),
         el("strong", { id: "dlg-cat", text: "" })
       ])
@@ -303,6 +307,16 @@
     );
   }
 
+  /* 和地图上的说法一致：第几排（贴走道为第 1 排）+ 哪一组（从大厅那侧数） */
+  function roughLocText(code) {
+    if (!WH.schematic || !WH.schematic.payloadFor) return "—";
+    var p = WH.schematic.payloadFor(code);
+    if (!p) p = WH.schematic.payloadForShelf(code);
+    if (!p) return "—";
+    if (p.zone.vertical) return "第 " + p.slot + " 格（柜区）";
+    return "第 " + p.row + " 排 · " + p.range[0] + "–" + p.range[1] + " 组";
+  }
+
   UI.openItem = function (code) {
     if (!global.WH) return false;
     var item = UI.itemByCode(code);
@@ -317,6 +331,7 @@
     dialog.querySelector("#dlg-code").textContent = item.code;
     dialog.querySelector("#dlg-loc").textContent = WH.locText(item.code);
     dialog.querySelector("#dlg-zone").textContent = item.zoneName;
+    dialog.querySelector("#dlg-rough").textContent = roughLocText(item.code);
     dialog.querySelector("#dlg-cat").textContent = item.category;
     dialog.querySelector("#dlg-map").href =
       "map.html#item=" + encodeURIComponent(item.code);
